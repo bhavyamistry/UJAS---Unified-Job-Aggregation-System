@@ -1,0 +1,162 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ATS - Get Jobs Sign Up</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .header {
+            background-color: #13274F;
+            color: white;
+            padding: 10px 0;
+            text-align: center;
+            width: 100%;
+        }
+
+        .signup-container {
+            background-color: #ffffff;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 20px 0px rgba(0,0,0,0.2);
+            text-align: center;
+            width: 300px;
+            margin-top: 20px;
+        }
+
+        .input-group {
+            margin-bottom: 20px;
+        }
+
+        .input-group input {
+            width: calc(100% - 20px);
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-top: 10px;
+            box-sizing: border-box;
+        }
+
+        .signup-btn {
+            width: 100%;
+            background-color: #13274F;
+            color: white;
+            padding: 12px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 18px;
+            transition: background-color 0.3s ease;
+        }
+
+        .signup-btn:hover {
+            background-color: #494577;
+        }
+
+        .login-link {
+            margin-top: 20px;
+            font-size: 14px;
+            color: #333;
+        }
+
+        .login-link a {
+            color: #4caf50;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>ATS - Get Job</h1>
+    </div>
+    <div class="signup-container">
+        <h2>Sign Up</h2>
+        <form action="login" method="post">
+            {% csrf_token %}
+            <div class="input-group">
+                <input type="text" placeholder="Full Name" id="full_name" name="full_name" required>
+            </div>
+            <div class="input-group">
+                <input type="email" placeholder="Email ID" id="email" name="email" required>
+            </div>
+            <div class="input-group">
+                <input type="password" placeholder="Password" id="password" name="password" required>
+            </div>
+            <button class="signup-btn" onclick="showPopupMessage('User created successfully! Now please login.')">Sign Up</button>
+        </form>
+        <form method="post" action="">
+            <div class="login-link">
+                <p>Already have an account? <button>Login</button></p>
+            </div>
+        </form>
+    </div>
+{#    <div id="successModal" class="modal">#}
+{#        <!-- Modal content -->#}
+{#        <div class="modal-content">#}
+{#            <span class="close" onclick="hideSuccessModal()">&times;</span>#}
+{#            <p></p>#}
+{#        </div>#}
+{#    </div>#}
+
+    <script>
+    // Function to show a generic pop-up message
+    function showPopupMessage(message) {
+        alert(message);
+    }
+
+    // Function to show the success modal
+    function showSuccessModal() {
+        var modal = document.getElementById("successModal");
+        modal.style.display = "block";
+    }
+
+    // Function to hide the success modal
+    function hideSuccessModal() {
+        var modal = document.getElementById("successModal");
+        modal.style.display = "none";
+    }
+
+    // Function to handle sign-up form submission
+    function handleSignup() {
+        // Assuming you have a function to validate and submit the form
+        var isFormValid = validateAndSubmitSignupForm();
+
+        if (isFormValid) {
+            // Check if the email is already in use (you need to implement this logic)
+            var isEmailInUse = checkIfEmailInUse();
+
+            if (isEmailInUse) {
+                showPopupMessage("Email ID is already in use. Please use a different email.");
+            } else {
+                // Show success modal
+                showSuccessModal();
+
+                // You can redirect to the login page after a delay (e.g., 3 seconds)
+                setTimeout(function() {
+                    window.location.href = "login";
+                }, 3000);
+            }
+        }
+    }
+
+    // Close the modal if the user clicks outside of it
+    window.onload = function(event) {
+        var modal = document.getElementById("successModal");
+        modal.style.display = "none";
+    };
+</script>
+
+
+</body>
+</html>
